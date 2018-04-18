@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ordem de Resolução</title>
+
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/bootstrap-responsive.min.css" type="text/css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="adicionar.html"><span class="glyphicon glyphicon-user"></span> Adicionar Funcionário</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="jumbotron text-center">
+            <h1>Ordem de Resolução</h1>
+            <p></p> 
+        </div>
+
+        <div class="container" ng-app="app" ng-controller="im-day">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Atendente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in itens">
+                        <td>{{item.data + " - " + item.diaSemana + "  " + item.diaDescricao}}</td>
+                        <td>{{item.resolvedor.nome}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+         <script>
+            var app = angular.module('app', []);
+            app.controller('im-day', function ($scope, $http) {
+                $http.get("http://localhost:8080/im-day").then(function (response) {
+                    $scope.itens = response.data.lista;
+                });
+            });
+        </script>
+    </body>
+</html>
